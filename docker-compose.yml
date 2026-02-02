@@ -1,20 +1,18 @@
+# rails_app01/docker-compose.yml
 services:
   web:
-    build:
-      context: .
-      dockerfile: Dockerfile.dev
+    build: .
     command: bash -c "bundle install && rails server -b 0.0.0.0"
     volumes:
-      - '.:/rails_app'
+      - '.:/rails_app01'
     ports:
-      - '3000:3000'
+      - '3001:3000'
     depends_on:
       - db
-    environment:
-      RAILS_ENV: development
-
   db:
     image: mysql:8.0
     environment:
       MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: app_development
+      MYSQL_DATABASE: rails_app01_development
+    ports:
+      - '3306:3306'

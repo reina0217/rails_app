@@ -1,7 +1,8 @@
+<!-- app/views/layouts/application.html.erb -->
 <!DOCTYPE html>
 <html>
   <head>
-    <title>RailsApp</title>
+    <title>Rails App</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -11,6 +12,34 @@
   </head>
 
   <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container">
+        <%= link_to "Rails App", root_path, class: "navbar-brand" %>
+        <div class="navbar-nav ms-auto">
+          <% if current_user %>
+            <!-- 【実装課題】ログアウト機能を実装したら、以下のコメントを外してください -->
+            <!-- <%= link_to "ログアウト", logout_path, method: :delete, class: "nav-link" %> -->
+          <% else %>
+            <%= link_to "新規登録", signup_path, class: "nav-link me-3" %>
+            <!-- 【実装課題】ログイン機能を実装したら、以下のコメントを外してください -->
+            <!-- <%= link_to "ログイン", login_path, class: "nav-link" %> -->
+          <% end %>
+        </div>
+      </div>
+    </nav>
+
+    <% if notice %>
+      <div class="alert alert-success" role="alert">
+        <%= notice %>
+      </div>
+    <% end %>
+    
+    <% if alert %>
+      <div class="alert alert-danger" role="alert">
+        <%= alert %>
+      </div>
+    <% end %>
+
     <%= yield %>
   </body>
 </html>

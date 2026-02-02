@@ -1,0 +1,36 @@
+<!-- app/views/sessions/new.html.erb -->
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="text-center">ログイン</h2>
+        </div>
+        <div class="card-body">
+          <!-- 【実装課題】ログインフォームを実装してください -->
+          <!-- 
+            実装のヒント：
+            1. form_withヘルパーを使用してフォームを作成
+               <%= form_with(scope: :session, url: login_path, local: true) do |f| %>
+            
+            2. emailフィールドを追加
+               <%= f.label :email, class: "form-label" %>
+               <%= f.email_field :email, class: "form-control" %>
+            
+            3. passwordフィールドを追加
+               <%= f.label :password, class: "form-label" %>
+               <%= f.password_field :password, class: "form-control" %>
+            
+            4. 送信ボタンを追加
+               <%= f.submit "ログイン", class: "btn btn-primary" %>
+            
+            5. エラーメッセージを表示（必要に応じて）
+               <% if flash[:alert] %>
+                 <div class="alert alert-danger"><%= flash[:alert] %></div>
+               <% end %>
+          -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
