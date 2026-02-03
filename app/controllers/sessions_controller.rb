@@ -50,5 +50,7 @@ class SessionsController < ApplicationController
     # 2. トップページへ移動する
     #
     # 3. 「ログアウトしました」というメッセージを表示する
+    session.delete(:user_id)
+    redirect_to root_path, notice: "ログアウトしました"
   end
 end
