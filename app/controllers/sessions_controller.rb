@@ -26,6 +26,18 @@ class SessionsController < ApplicationController
     #    ・「メールアドレスまたはパスワードが正しくありません」というエラーメッセージを表示する
     #    ・ログイン画面を再表示する
     #    ・ステータスコードを適切に設定する
+    email = params[:session][:email]
+    password = params[:session][:password]
+    
+    user = User.find_by(email: email)
+
+    if user&.authenticate(password)
+      session[:user_id] = user.id
+      redirect_to root_path, notice: "ログインしました"
+    else
+      flash.now[:alert] = "メールアドレスまたはパスワードが正しくありません"
+      render :new, status: :unprocessable_entity
+    end
   end
 
   def destroy
@@ -38,5 +50,7 @@ class SessionsController < ApplicationController
     # 2. トップページへ移動する
     #
     # 3. 「ログアウトしました」というメッセージを表示する
+    session.delete(:user_id)
+    redirect_to root_path, notice: "ログアウトしました"
   end
 end

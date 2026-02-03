@@ -5,13 +5,13 @@
       <div class="card">
         <div class="card-body">
           <h1 class="card-title">ようこそ</h1>
-          
+
           <% if current_user %>
-            <p>ログイン中のユーザー: <%= current_user.email %></p>
+          <p>ログイン中のユーザー: <%= current_user.email %></p>
           <% else %>
-            <p>ログインしていません</p>
-            <!-- 【実装課題】ログイン機能を実装したら、以下のコメントを外してください -->
-            <!-- <%= link_to "ログイン", login_path, class: "btn btn-primary" %> -->
+          <p>ログインしていません</p>
+          <!-- 【実装課題】ログイン機能を実装したら、以下のコメントを外してください -->
+          <%= link_to "ログイン", login_path, class: "btn btn-primary" %>
           <% end %>
         </div>
       </div>
