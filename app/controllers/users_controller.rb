@@ -8,7 +8,7 @@ class UsersController < ApplicationController
     if @user.save
       # 【実装課題】ログイン機能を実装したら、以下のコメントを外してください
       # ユーザー登録成功時に自動的にログイン状態にする処理です
-      # session[:user_id] = @user.id
+      session[:user_id] = @user.id
       redirect_to root_path, notice: 'ユーザー登録が完了しました'
     else
       render :new
