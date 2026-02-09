@@ -105,4 +105,32 @@ RSpec.describe "Sessions", type: :request do
       end
     end
   end
+
+  describe "DELETE /logout" do
+  
+    # 事前にログイン状態を作っておきましょう
+    before do
+      # ログイン処理を書く
+      post login_path, params:{ session: {email:'test@example.com', password: 'password'}}
+    end
+  
+    it "ログアウトされ、トップページへリダイレクトされる" do
+      # ログイン中は session[:user_id] が存在することを確認
+      expect(session[:user_id]).to be_present
+
+      # logout を実行する
+      delete logout_path
+  
+      # session[:user_id] が nil になっていることを確認
+      expect(session[:user_id]).to be_nil
+  
+      # root_path にリダイレクトされていることを確認
+      expect(response).to redirect_to(root_path)
+  
+      # リダイレクト後の画面に
+      # 「ログアウトしました」という文言が含まれていることを確認
+      follow_redirect!
+      expect(response.body).to include("ログアウトしました")
+    end
+  end
 end
