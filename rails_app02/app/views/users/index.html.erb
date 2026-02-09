@@ -1,0 +1,55 @@
+<!-- app/views/users/index.html.erb -->
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="text-center">ユーザー一覧</h2>
+        </div>
+        <div class="card-body">
+          <!-- 【実装課題】ユーザー一覧画面を実装してください -->
+           
+            <!-- 実装のヒント： -->
+            <!-- 1. テーブルでユーザー情報を表示 -->
+               <table class="table table-striped">
+                 <thead>
+                   <tr>
+                     <th>ID</th>
+                     <th>メールアドレス</th>
+                     <th>登録日時</th>
+                     <th>操作</th>
+                   </tr>
+                 </thead>
+                 <tbody>
+                   <% @users.each do |user| %>
+                     <tr>
+                       <td><%= user.id %></td>
+                       <td><%= user.email %></td>
+                       <td><%= user.created_at.strftime('%Y/%m/%d %H:%M') %></td>
+                       <td>
+                        <!-- 削除ボタン -->
+                        <!-- 自身の行には削除ボタンを表示させない条件を設定 -->
+                        <% if %>
+                          <%= link_to '削除',
+                            user_path(user),
+                            method: :delete,
+                            data: { confirm: '削除しますか？' },
+                            class: 'btn btn-danger btn-sm' 
+                          %>
+                        <% end %>
+                       </td>
+                     </tr>
+                   <% end %>
+                 </tbody>
+               </table>
+            
+            <!-- 2. ページネーション機能を追加（kaminari gemを使用している場合）-->
+               <div class="d-flex justify-content-center mt-3">
+                 <%= paginate @users %>
+               </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 
