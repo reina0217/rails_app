@@ -68,4 +68,41 @@ RSpec.describe "Sessions", type: :request do
   #     # 「ログアウトしました」という文言が含まれていることを確認
   #   end
   # end
+  let!(:user) do
+    # ここにユーザー作成処理を書く
+    User.create(
+      email: 'test@example.com',
+      password: 'password',
+    )
+  end
+  describe "POST /login" do
+  
+    context "ログイン成功時" do
+      it "ログイン後、トップページへリダイレクトされる" do
+        # 正しい email / password を送信する
+        post login_path, params:{ session: {email:'test@example.com', password: 'password'}}
+  
+        # response が root_path にリダイレクトされていることを確認
+        expect(response).to redirect_to(root_path)
+  
+        # リダイレクト後の画面に
+        # 「ログインしました」という文言が含まれていることを確認
+        follow_redirect!
+        expect(response.body).to include("ログインしました")
+      end
+    end
+  
+    context "ログイン失敗時" do
+      it "エラーメッセージが表示される" do
+        # 間違った password を送信する
+        post login_path, params:{ session: {email:'mistake@example.com', password: 'mistake'}}
+  
+        # ステータスコードが 422 であることを確認
+        expect(response).to have_http_status(:unprocessable_entity)
+  
+        # レスポンスにエラーメッセージが含まれていることを確認
+        expect(response.body).to include("メールアドレスまたはパスワードが正しくありません")
+      end
+    end
+  end
 end
