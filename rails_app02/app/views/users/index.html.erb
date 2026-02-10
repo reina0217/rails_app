@@ -29,7 +29,7 @@
                        <td>
                         <!-- 削除ボタン -->
                         <!-- 自身の行には削除ボタンを表示させない条件を設定 -->
-                        <% if %>
+                        <% if user != current_user%>
                           <%= link_to '削除',
                             user_path(user),
                             method: :delete,
