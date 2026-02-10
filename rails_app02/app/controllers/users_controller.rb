@@ -33,6 +33,8 @@ class UsersController < ApplicationController
     #
     # ※ ページネーションを使わない場合は、
     #   並び順を意識して一覧を取得してみましょう
+    @users = User.page params[:page]
+
   end
 
   def destroy
