@@ -53,6 +53,9 @@ class UsersController < ApplicationController
     #
     # ※ 削除前の確認ダイアログは
     #   コントローラではなくビュー側で実装します
+    user = User.find(params[:id])
+    user.destroy
+    redirect_to users_path, notice: "ユーザーを削除しました"
   end
 
   private
