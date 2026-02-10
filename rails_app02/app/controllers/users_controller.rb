@@ -15,6 +15,7 @@ class UsersController < ApplicationController
 
   # 以下の機能は管理者のみに限定する
   # before_actionを記述
+  before_action :require_admin, only: [:index, :destroy]
 
   def index
     # 【実装課題】ユーザー一覧機能を実装してください
