@@ -15,6 +15,7 @@ class UsersController < ApplicationController
 
   # 以下の機能は管理者のみに限定する
   # before_actionを記述
+  before_action :require_admin, only: [:index, :destroy]
 
   def index
     # 【実装課題】ユーザー一覧機能を実装してください
@@ -33,6 +34,8 @@ class UsersController < ApplicationController
     #
     # ※ ページネーションを使わない場合は、
     #   並び順を意識して一覧を取得してみましょう
+    @users = User.page params[:page]
+
   end
 
   def destroy
@@ -50,6 +53,9 @@ class UsersController < ApplicationController
     #
     # ※ 削除前の確認ダイアログは
     #   コントローラではなくビュー側で実装します
+    user = User.find(params[:id])
+    user.destroy
+    redirect_to users_path, notice: "ユーザーを削除しました"
   end
 
   private

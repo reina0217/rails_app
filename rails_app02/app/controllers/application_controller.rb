@@ -8,7 +8,9 @@ class ApplicationController < ActionController::Base
 
   # 管理者権限のあるユーザー以外はアクセスできないよう制御する(TOPにとどまり、エラー表示)
   def require_admin
-
+    unless current_user&.admin?
+      redirect_to root_path, alert: "権限がありません"
+    end
   end
 end
 
