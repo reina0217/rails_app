@@ -1,0 +1,18 @@
+<div class='w-100 mx-auto mt-5' style='max-width: 330px;'>
+  <h2><%= t('.sign_in') %></h2>
+
+  <%= form_for(resource, url: user_session_path, html:{ class: 'px-3' }) do |f| %>
+    <%= f.label :name, class: 'sr-only', for: 'name' %>
+    <%= f.text_field :name, autofocus: true, class: 'form-control', required: true,
+                            placeholder: User.human_attribute_name(:name) %>
+
+    <%= f.label :password, class: 'sr-only', for: 'password' %>
+    <%= f.password_field :password, class: 'form-control', required: true,
+                                    placeholder: User.human_attribute_name(:password) %>
+
+
+    <div class='actions'>
+      <%= f.submit t('.sign_in'), class: 'btn btn-primary btn-block mt-1' %>
+    </div>
+  <% end %>
+</end>

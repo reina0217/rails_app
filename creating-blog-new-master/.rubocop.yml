@@ -1,0 +1,91 @@
+require:
+  - rubocop-rails
+
+AllCops:
+  TargetRubyVersion: 3.0
+  NewCops: enable
+  Exclude:
+    - "vendor/**/*" # rubocop config/default.yml
+    - "db/schema.rb"
+    - "Gemfile"
+    - "config/application.rb"
+    - "config/environments/*"
+    - "bin/*"
+  DisplayCopNames: true # どの制約に引っかかったのか表示する
+  SuggestExtensions: false
+
+Rails:
+  Enabled: true
+
+##################### Rails ###############################
+
+Rails/OutputSafety:
+  Exclude:
+    - app/helpers/bootstrap_helper.rb
+    - spec/helpers/bootstrap_helper_spec.rb
+
+##################### Metrics #############################
+
+Metrics/AbcSize:
+  Max: 30
+
+Metrics/CyclomaticComplexity:
+  Max: 10
+
+Metrics/MethodLength:
+  Max: 20
+  Exclude:
+    - "db/migrate/*.rb"
+
+Metrics/BlockLength:
+  Exclude:
+    - spec/**/*.rb
+
+##################### Style ###############################
+
+# 空のメソッドを許可する
+Style/EmptyMethod:
+  Enabled: false
+
+# シンボルの配列を許可する
+Style/SymbolArray:
+  Enabled: false
+
+# 日本語のコメントを許可する
+Style/AsciiComments:
+  Enabled: false
+
+# ドキュメントの無い public class を許可する
+Style/Documentation:
+  Enabled: false
+
+# 3桁ごとの_区切りを不要にする
+Style/NumericLiterals:
+  Enabled: false
+
+Style/ParallelAssignment:
+  Enabled: false
+
+# selfを許可
+Style/RedundantSelf:
+  Enabled: false
+
+# ruby2.3以降のマジックコメントによる文字列のfreezeをチェックしない
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+##################### Layout ##############################
+
+# 1行は120字以内
+Layout/LineLength:
+  Max: 120
+  Exclude:
+    - config/initializers/devise.rb
+
+# 余分なスペースを許可
+Layout/ExtraSpacing:
+  Enabled: false
+
+# return文の次の空行を不要にする
+Layout/EmptyLineAfterGuardClause:
+  Enabled: false

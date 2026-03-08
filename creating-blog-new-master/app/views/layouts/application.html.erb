@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>CreatingBlog</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
+  </head>
+
+  <body>
+    <header>
+      <div class='navbar navbar-light bg-light mb-1'>
+        <div class='container d-flex justify-content-between'>
+          <%= link_to t('label.top'), root_path, class: 'pl-0 btn btn-default' %>
+          <%= link_to t('label.new'), new_article_path, class: 'btn btn-default' %>
+          <% if user_signed_in? %>
+            <%= link_to t('label.sign_out'), destroy_user_session_path, class: 'pr-0 ml-auto btn btn-default',
+                                                                        method: :delete %>
+          <% else %>
+            <%= link_to t('label.sign_in'), new_user_session_path, class: 'pr-0 ml-auto btn btn-default' %>
+          <% end %>
+        </div>
+      </div>
+    </header>
+    <div class="container contents">
+      <%= bootstrap_flash %>
+      <%= yield %>
+    </div>
+  </body>
+</html>

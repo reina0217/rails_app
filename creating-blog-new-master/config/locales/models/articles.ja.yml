@@ -1,0 +1,10 @@
+ja:
+  activerecord:
+    models:
+      article: 記事
+
+    attributes:
+      article:
+        id:    ID
+        title: タイトル
+        text:  本文

@@ -1,0 +1,12 @@
+<h1><%= t('label.new') %></h1>
+<%= form_for @article  do |f| %>
+  <div class='mb-3'>
+    <%= f.label :title %>
+    <%= f.text_field :title, class: 'form-control', placeholder: Article.human_attribute_name(:title) %>
+  </div>
+  <div class='mb-3'>
+    <%= f.label :text %>
+    <%= f.text_area :text, class: 'form-control', placeholder: Article.human_attribute_name(:text), rows: '5' %>
+  </div>
+  <%= f.submit t('label.article_create'), class: 'btn btn-primary' %>
+<% end %>

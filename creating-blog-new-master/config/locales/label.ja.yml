@@ -1,0 +1,13 @@
+ja:
+  label:
+    top:      トップページ
+    sign_in:  ログイン
+    sign_out: ログアウト
+    new:      新規投稿
+    show:     詳細
+    edit:     編集
+    destroy:  削除
+    article_create: 投稿する
+    create_success: '%{model}を投稿しました'
+    destroy_success: '%{model}を削除しました'
+    destroy_confirm: '本当に削除しますか?'

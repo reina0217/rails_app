@@ -1,0 +1,44 @@
+version: '3'
+ 
+services:
+  mysql:
+    image: mysql:5.7.33
+    environment:
+      LANG: C.UTF-8
+      TZ: Asia/Tokyo
+      MYSQL_ROOT_PASSWORD: &mysql_password mysql
+    volumes:
+      - mysql_volume:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    hostname: mysql
+
+  web:
+    build: .
+    command: bundle exec rails s -b 0.0.0.0
+    ports:
+      - "3000:3000"
+    environment:
+      USER_ID: ${USER_ID}
+      GROUP_ID: ${GROUP_ID}
+      MYSQL_PASSWORD: *mysql_password
+    volumes:
+      - .:/app:delegated
+      - bundle_volume:/usr/local/bundle
+      - home_volume:/home/docker
+    working_dir: /app
+    depends_on:
+      - mysql
+    privileged: true
+    tty: true
+    stdin_open: true
+    hostname: web
+    entrypoint: ./docker-entrypoint.sh
+
+volumes:
+  mysql_volume:
+    driver: local
+  bundle_volume:
+    driver: local
+  home_volume:
+    driver: local
