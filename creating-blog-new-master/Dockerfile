@@ -1,5 +1,5 @@
-FROM node:14.16.0-buster-slim AS node
-FROM ruby:3.0.0-slim
+FROM node:14-bullseye-slim AS node
+FROM ruby:3.0-slim-bullseye
 
 # OSベース設定
 RUN set -ex \

@@ -3,6 +3,7 @@ version: '3'
 services:
   mysql:
     image: mysql:5.7.33
+    platform: linux/amd64
     environment:
       LANG: C.UTF-8
       TZ: Asia/Tokyo
