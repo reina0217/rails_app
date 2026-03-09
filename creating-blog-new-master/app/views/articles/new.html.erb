@@ -8,5 +8,11 @@
     <%= f.label :text %>
     <%= f.text_area :text, class: 'form-control', placeholder: Article.human_attribute_name(:text), rows: '5' %>
   </div>
+  <div>
+  <div class='mb-3'>
+    <%= f.label :image %>
+    <%= f.file_field :image %>
+  <div>
+</div>
   <%= f.submit t('label.article_create'), class: 'btn btn-primary' %>
 <% end %>
