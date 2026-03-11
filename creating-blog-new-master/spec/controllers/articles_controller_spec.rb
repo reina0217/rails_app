@@ -155,6 +155,114 @@ RSpec.describe ArticlesController, type: :controller do
     end
   end
 
+  describe 'GET #edit' do
+    let(:article) { create(:article) }
+    context 'ログイン済み' do
+      login_user
+      before do
+        get :edit, params: { id: article.id }
+      end
+
+      it 'result' do
+        is_expected.to respond_with(:success)
+        is_expected.to render_with_layout(:application)
+        is_expected.to render_template(:edit)
+      end
+    end
+  end
+
+  describe 'PATCH #update' do
+    let!(:article) { create(:article, title: '元のタイトル', text: '元の本文') }
+
+    context 'ログイン済み' do
+      login_user
+
+      context '入力エラー無し' do
+        let(:article_params) { { title: '新しいタイトル', text: '新しい本文' } }
+        before do
+          patch :update, params: { id: article.id, article: article_params }
+        end
+
+        it 'result' do
+          # response
+          is_expected.to respond_with(:redirect)
+          is_expected.to redirect_to(articles_path)
+
+          # assigns
+          expect(article.reload.title).to eq '新しいタイトル'
+          expect(article.reload.text).to eq '新しい本文'
+
+          # flash
+          is_expected.to set_flash[:notice]
+            .to(I18n.t('label.update_success', model: Article.model_name.human))
+        end
+      end
+
+      context '入力エラー有り' do
+        let(:article_params) { { title: nil } }
+        before do
+          patch :update, params: { id: article.id, article: article_params }
+        end
+
+        it 'result' do
+          # response
+          is_expected.to respond_with(:success)
+          is_expected.to render_with_layout(:application)
+          is_expected.to render_template(:edit)
+
+          # assigns
+          expect(article.reload.title).to eq '元のタイトル'
+          expect(article.reload.text).to eq '元の本文'
+
+          # flash
+          is_expected.to set_flash[:error]
+        end
+      end
+
+      context '画像あり' do
+        let(:image) { fixture_file_upload('../fixtures/files/test_image_50.jpg', 'image/jpeg') }
+        let(:article_params) { { image: image } }
+        before do
+          patch :update, params: { id: article.id, article: article_params }
+        end
+
+        it 'result' do
+          # response
+          is_expected.to respond_with(:redirect)
+          is_expected.to redirect_to(articles_path)
+
+          # assigns
+          expect(article.reload.image.file.filename).to eq 'test_image_50.jpg'
+
+          # flash
+          is_expected.to set_flash[:notice]
+            .to(I18n.t('label.update_success', model: Article.model_name.human))
+        end
+      end
+
+      context '画像あり（51KB以上）' do
+        let(:image) { fixture_file_upload('../fixtures/files/test_image_51.jpg', 'image/jpeg') }
+        let(:article_params) { { image: image } }
+        before do
+          patch :update, params: { id: article.id, article: article_params }
+        end
+
+        it 'result' do
+          # response
+          is_expected.to respond_with(:success)
+          is_expected.to render_with_layout(:application)
+          is_expected.to render_template(:edit)
+
+          # assigns
+          expect(article.reload.image?).to be_falsy
+
+          # flash
+          is_expected.to set_flash[:error]
+        end
+      end
+    end
+  end
+
   describe 'DELETE #destroy' do
     let(:article) { create(:article) }
     context 'ログイン済み' do
