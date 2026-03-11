@@ -26,6 +26,17 @@ class ArticlesController < ApplicationController
   def edit
   end
 
+  def update
+    @article = Article.find(params[:id])
+    if @article.update(article_params)
+      redirect_to articles_path,
+                  notice: I18n.t('label.update_success', model: Article.model_name.human)
+    else
+      flash[:error] = @article.errors.full_messages
+      render :edit
+    end
+  end
+
   def destroy
     # 物理削除
     @article.destroy!
