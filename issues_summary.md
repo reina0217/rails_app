@@ -68,7 +68,7 @@ Title
 Description
 ページネートを追加
 
-* [ ] gem(kaminari)を追加
+* [x] gem(kaminari)を追加
 * [ ] 25件でページネートさせる
 * [ ] rspec追加
  - コントローラー
