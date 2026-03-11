@@ -8,11 +8,11 @@ Title
 Description
 画像アップロード機能を追加する
 
-* [ ] gem(carrierwave)を追加
-* [ ] 画像アップロードのフォームを追加
+* [x] gem(carrierwave)を追加
+* [x] 画像アップロードのフォームを追加
  - 画像は任意項目
  - ファイルサイズは最大50KBに制限
-* [ ] rspec追加
+* [x] rspec追加
  - コントローラー
 
 ---

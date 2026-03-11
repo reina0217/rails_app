@@ -91,6 +91,47 @@ RSpec.describe ArticlesController, type: :controller do
           is_expected.to_not set_flash[:notice]
         end
       end
+
+      context '画像あり' do
+        before do
+          article_params = attributes_for(:article).merge(image: fixture_file_upload('../fixtures/files/test_image_50.jpg', 'image/jpeg'))
+          post :create, params: { article: article_params }
+        end
+
+        it 'result' do
+          # response
+          is_expected.to respond_with(:redirect)
+          is_expected.to redirect_to(articles_path)
+
+          # assigns
+          expect(assigns[:article].persisted?).to be_truthy
+          expect(assigns[:article].image?).to be_truthy
+
+          # flash
+          is_expected.to set_flash[:notice]
+            .to(I18n.t('label.create_success', model: Article.model_name.human))
+        end
+      end
+
+      context '画像あり（51KB以上）' do
+        before do
+          article_params = attributes_for(:article).merge(image: fixture_file_upload('../fixtures/files/test_image_51.jpg', 'image/jpeg'))
+          post :create, params: { article: article_params }
+        end
+
+        it 'result' do
+          # response
+          is_expected.to respond_with(:success)
+          is_expected.to render_with_layout(:application)
+          is_expected.to render_template(:new)
+
+          # assigns
+          expect(assigns[:article].persisted?).to be_falsy
+
+          # flash
+          is_expected.to_not set_flash[:notice]
+        end
+      end
     end
   end
 
