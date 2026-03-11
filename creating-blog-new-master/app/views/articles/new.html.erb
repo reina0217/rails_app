@@ -2,11 +2,19 @@
 <%= form_for @article  do |f| %>
   <div class='mb-3'>
     <%= f.label :title %>
-    <%= f.text_field :title, class: 'form-control', placeholder: Article.human_attribute_name(:title) %>
+    <%= f.text_field :title, class: 'form-control', placeholder: Article.human_attribute_name(:title), id: 'article_title' %>
+    <p class="text-muted text-right"><span id="title_count">0</span> / 255</p>
   </div>
   <div class='mb-3'>
     <%= f.label :text %>
-    <%= f.text_area :text, class: 'form-control', placeholder: Article.human_attribute_name(:text), rows: '5' %>
+    <%= f.text_area :text, class: 'form-control', placeholder: Article.human_attribute_name(:text), rows: '5', id: 'article_text' %>
+    <p class="text-muted text-right"><span id="text_count">0</span> / 10000</p>
   </div>
+  <div>
+  <div class='mb-3'>
+    <%= f.label :image %>
+    <%= f.file_field :image %>
+  <div>
+</div>
   <%= f.submit t('label.article_create'), class: 'btn btn-primary' %>
 <% end %>

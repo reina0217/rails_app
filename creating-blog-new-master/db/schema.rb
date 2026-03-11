@@ -10,13 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_03_13_083450) do
+ActiveRecord::Schema.define(version: 2026_03_09_132931) do
 
   create_table "articles", charset: "utf8mb4", force: :cascade do |t|
     t.string "title", null: false, comment: "タイトル"
     t.text "text", null: false, comment: "本文"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "image"
   end
 
   create_table "users", charset: "utf8mb4", force: :cascade do |t|

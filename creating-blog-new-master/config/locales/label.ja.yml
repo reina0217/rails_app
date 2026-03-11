@@ -8,6 +8,8 @@ ja:
     edit:     編集
     destroy:  削除
     article_create: 投稿する
+    article_update: 更新する
     create_success: '%{model}を投稿しました'
+    update_success: '%{model}を更新しました'
     destroy_success: '%{model}を削除しました'
     destroy_confirm: '本当に削除しますか?'

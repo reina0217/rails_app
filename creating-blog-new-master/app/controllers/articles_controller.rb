@@ -2,7 +2,7 @@ class ArticlesController < ApplicationController
   before_action :set_article, only: [:show, :edit, :destroy]
 
   def index
-    @articles = Article.order(id: :desc)
+    @articles = Article.order(id: :desc).page(params[:page]).per(25)
   end
 
   def show
@@ -26,6 +26,17 @@ class ArticlesController < ApplicationController
   def edit
   end
 
+  def update
+    @article = Article.find(params[:id])
+    if @article.update(article_params)
+      redirect_to articles_path,
+                  notice: I18n.t('label.update_success', model: Article.model_name.human)
+    else
+      flash[:error] = @article.errors.full_messages
+      render :edit
+    end
+  end
+
   def destroy
     # 物理削除
     @article.destroy!
@@ -40,6 +51,6 @@ class ArticlesController < ApplicationController
   end
 
   def article_params
-    params.require(:article).permit(:title, :text)
+    params.require(:article).permit(:title, :text, :image)
   end
 end
