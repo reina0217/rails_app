@@ -9,3 +9,11 @@
 Article.create(title: 'タイトル', text: "本文\nテキスト") if Article.first.nil?
 
 User.create(name: 'user', password: 'password') if User.first.nil?
+
+# pageネーションの確認用に複数記事を作成
+30.times do |n|
+  Article.create!(
+    title: "テスト記事#{n + 1}",
+    text: "これはテスト記事#{n + 1}の本文です。"
+  )
+end
