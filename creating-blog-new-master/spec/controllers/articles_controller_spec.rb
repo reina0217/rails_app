@@ -6,18 +6,38 @@ RSpec.describe ArticlesController, type: :controller do
   end
 
   describe 'GET #index' do
-    before do
-      get :index
+    let!(:articles) { create_list(:article, 30) }
+
+    context '1ページ目の場合' do
+      before do
+        get :index, params: { page: 1 }
+      end
+
+      it 'result' do
+        # response
+        is_expected.to respond_with(:success)
+        is_expected.to render_with_layout(:application)
+        is_expected.to render_template(:index)
+
+        # assigns
+        expect(assigns[:articles].count).to eq 25
+        expect(assigns[:articles]).to eq Article.order(id: :desc).page(1).per(25)
+      end
     end
 
-    it 'result' do
-      # response
-      is_expected.to respond_with(:success)
-      is_expected.to render_with_layout(:application)
-      is_expected.to render_template(:index)
+    context '2ページ目の場合' do
+      before do
+        get :index, params: { page: 2 }
+      end
 
-      # assigns
-      expect(assigns[:articles].to_sql).to eq Article.order(id: :desc).to_sql
+      it 'result' do
+        # response
+        is_expected.to respond_with(:success)
+
+        # assigns
+        expect(assigns[:articles].count).to eq 5
+        expect(assigns[:articles]).to eq Article.order(id: :desc).page(2).per(25)
+      end
     end
   end
 
